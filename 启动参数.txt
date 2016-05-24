@@ -1,0 +1,30 @@
+java -cp .:../lib/* -Xms1048m -Xmx2120m -XX:+UseG1GC -Xloggc:/data/gameserver/yxl_9500/log/gc.log -XX:+HeapDumpOnOutOfMemoryError game.main.GameServer
+
+
+---------------------------------------参考网址：http://my.oschina.net/xianggao/blog/88492
+
+java -cp .;c:\dir1\lib.jar Test   
+   
+-cp 和 -classpath 一样，是指定类运行所依赖其他类的路径，通常是类库，jar包之类，需要全路径到jar包，window上分号“;”   
+   
+分隔，linux上是分号“:”分隔。不支持通配符，需要列出所有jar包，用一点“.”代表当前路径。   
+虽然现在都有eclipse之类的IDE了，但有时候后会手工编译和运行一些程序，很多人包括多年开发经验的人都不知道怎么在命令行参   
+数运行类。有点杯具……   
+使用范例：   
+java -cp ..\lib\hsqldb.jar org.hsqldb.Server -database mydb    
+或    
+java -cp ../lib/hsqldb.jar org.hsqldb.Server -database.0 mydb -dbname.0 mydb   
+
+
+----------------------------------------
+java -cp 参数
+
+      java -cp是设置classpath运行Java程序的命令，但是像下面这种会报找不到main的错误：
+java -cp ../../lib/*.jar com.realbow.report.service.impl.TableCleanInfoService
+      这是由于classpath已经指定到jar文件里了，在那里面找不到com.realbow.report.service.impl.TableCleanInfoService类，因此一般要这样写：
+ java -cp .:../../lib/*.jar com.realbow.report.service.impl.TableCleanInfoService
+       要把当前路径也设到classpath里。
+
+       但是上面那个命令还是会出错，改成如下：
+java -cp .:../lib/poi-3.2-FINAL.jar com.realbow.report.service.impl.TableCleanInfoService
+       就可以了。 难道 -cp 参数不知道正则表达式？
