@@ -1,0 +1,31 @@
+
+1、程序举例：
+功能非常简单，就是输入一个文件名，判断这个文件名是目录还是文件，如果两都都不是，则给出相应的提示。
+#! /bin/bash  
+# filename:FileType.sh  
+  
+read -p "Please input the filename :" filename  
+fpath=$filename  
+if [ -d $fpath ];  
+ then  
+    echo "$fpath is a direstory.";  
+elif [ -e $fpath ];  
+ then  
+    echo "$fpath is a file.";  
+else  
+    echo "$fpath is NOT a file  or direstory.";  
+fi  
+
+1、fpath=$filename
+首先来看看这句，在Shell中变量是不用像C或C++那样，需要先定义再使用，在Shell中，直接写直接用就行了，filename是上一句中的变量，用以保存我们输入的文件名。大家一定要注意一下这句话的写法，常见的错误有如下两点：
+
+1）fpath = $filename，注意这样的写法在Shell中是另一种的意思，即判断filename的值是否为fpath，注意是fpath，不是fpath这个变量对应的值。因为在Shell中a=b，与a = b，是完全不同的，前者是赋值，后者是比较。这对于写惯了C/C++的程序员来说可能是致命的，因为在C/C++中，a=b，与a = b是完全相同的，而且不少人喜欢第二种写法，因为这样写代码比较好看，然而在Shell中却栽了大根头。
+
+2）fpath=filename
+对于C/C++程序员来说，既然filename是一个变量，fpath也是一个变量，则fpath=filename应该是把变量filename的值赋给fpath，应该是没问题的。但是在Shell中却不然，因为Shell中的变量都不需要定义，你想让Shell知道这是一个变量，而不是一个普通的字符串，就应该在它的前面加上一个$，所以当你写成fpath=filename时，它的意思就是fpath这个变量的值赋为filename，而不是filename这个变量所对应的值，因为你没有加上$号，所以默认filename只是普通的字符串。所以当你想把filename的值赋给fpath时，应该写成fpath=$filename，这时Shell就是认为filename是一个变量，也就会取出filename的值并赋给fpath。
+
+2、if [ -d $fpath ];
+第二个值得注意的地方就是这里了，注意这条语句的所有空格都是必须的，特别要注意的是if与“[”之间一定要有一个空格。因为在Shell中这不是编码规范或风格的问题，是语法问题。
+
+3、echo "$fpath is a direstory.";
+注意，在Shell中双引号与单引号有所不同的，虽然大家都能打印也字符串，但是双引号中的变量，会用其值来代替，而在单引号中则不会对变量求值。例如，在程序中你输入：/root，则输出为：/root is a direstory.。$fpath用/root被代替了。若改为echo '$fpath is a direstory.';，则无论你输入的内容是什么哪个目录都只会输出：$fpath is a direstory.。还有就是，echo也可以不加双引号和单引号，不过这样的话，你就无法在要显示中文本中使用命令定界符。
