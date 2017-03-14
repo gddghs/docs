@@ -1,0 +1,42 @@
+
+*Android应用程序组成：
+	1.Activity——用得最频繁的，一般一个Activity就是手机屏幕的一屏。可以在里面插入一些元素如button、checkbox等
+				生命周期。
+				Intent/Intent Filters
+
+	2.Broadcast Intent Receiver——让应用对外事件（电话、消息等）作做一个响应。
+	
+	3.Service——为某个应用程序提供服务，没有界面的。
+	
+	4.Content Provider——数据在Android中是私有的，为了保证不同程序间数据交互（增删改查），则需要实现ContentProvider接口
+						将数据暴露出来。
+						
+						
+						
+*Android基本组件：
+	1.View——视图组件。一个view（button、list、edittext等等）在屏幕上占据一块矩形区域，负责渲染和这块区域的事件等。
+	
+	2.Viewgroup——视图容器组件。view的容器，也可以是一个viewgroup添加到另一个viewgroup
+	
+	3.Layout——布局组件。
+			LinearLayout——线性布局，可以设置布局方向为“vertical”(垂直布局：先加入的view显示在顶端)和“horizontal”（水平布局：从左到右的顺序）
+			
+			RelativeLayout——相对布局
+	
+	4.LayoutParams——布局参数
+	
+
+*Android项目结构：
+	1.	|--src (源文件目录)
+		|--gen
+			|--R.java (自动生成)
+		|--Android library (应用运行的Android库)
+		|--assets (放置一些多媒体等文件)
+		|--res (资源文件)
+			|--drawable (图片资源)
+			|--layout (布局文件xml)
+			|--values (存放显示相关的配置数据的定义文件，如strings.xml, style.xml, dimens.xml, arrays.xml, ids.xml等。)
+			|--AndroidManifest.xml (配置文件)
+			
+			
+		
